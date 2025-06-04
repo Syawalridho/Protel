@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Peta Orthophoto Lokal Saya</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"/>
+  <style>
+    body { margin: 0; font-family: sans-serif; }
+    #map { height: calc(100vh - 80px); width: 100%; } /* Sesuaikan tinggi peta jika perlu */
+    .controls { padding: 10px; background-color: #f0f0f0; height: 80px; box-sizing: border-box; }
+    .controls label { margin-right: 10px; }
+  </style>
+</head>
+<body>
+
+  <div class="controls">
+    <label for="geotiffFile">Pilih File GeoTIFF (.tif):</label>
+    <input type="file" id="geotiffFile" accept=".tif,.tiff">
+    <br>
+    <label for="csvFile">Pilih File CSV Pohon:</label>
+    <input type="file" id="csvFile" accept=".csv">
+  </div>
+  <div id="map"></div>
+ 
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/georaster"></script>
+  <script src="https://unpkg.com/georaster-layer-for-leaflet"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
+
+  <script>
+    const map = L.map('map', {
+        center: [-7.2846, 112.7964], // Pusat default, akan disesuaikan nanti
+        zoom: 13 // Zoom default, akan disesuaikan nanti
+    });
+    
+    // Tidak ada basemap dunia, peta akan kosong sampai COG dimuat
+
+    let geoRasterLayer = null;
+    let treeMarkersLayer = L.layerGroup().addTo(map); // Layer group untuk marker pohon
+
+    document.getElementById('geotiffFile').addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const arrayBuffer = e.target.result;
+          parseGeoraster(arrayBuffer).then(georaster => {
+            if (geoRasterLayer) {
+              map.removeLayer(geoRasterLayer); // Hapus layer COG sebelumnya jika ada
+            }
+            geoRasterLayer = new GeoRasterLayer({
+              georaster: georaster,
+              opacity: 1.0,
+              resolution: 128, // Bisa diubah (misal 256)
+              // pixelValuesToColorFn: values => (values[0] === 0 && values[1] === 0 && values[2] === 0) ? null : `rgb(${values[0]},${values[1]},${values[2]})` // Contoh untuk NoData hitam
+            });
+            geoRasterLayer.addTo(map);
+            map.fitBounds(geoRasterLayer.getBounds()); // Sesuaikan tampilan peta dengan batas COG
+          }).catch(error => {
+            console.error("Error parsing GeoTIFF:", error);
+            alert("Gagal memuat atau mem-parsing file GeoTIFF. Pastikan file adalah COG yang valid.");
+          });
+        };
+        reader.readAsArrayBuffer(file);
+      }
+    });
+
+    document.getElementById('csvFile').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            treeMarkersLayer.clearLayers(); // Hapus marker pohon sebelumnya
+
+            Papa.parse(file, {
+                header: true,
+                skipEmptyLines: true,
+                complete: function(results) {
+                    results.data.forEach(tree => {
+                        const lat = parseFloat(tree.Latitude);
+                        const lon = parseFloat(tree.Longitude);
+                        const id = tree.Tree_ID;
+
+                        if (!isNaN(lat) && !isNaN(lon)) {
+                            L.circleMarker([lat, lon], {
+                                radius: 6,
+                                color: "green",
+                                fillColor: "lime",
+                                fillOpacity: 0.8
+                            })
+                            .bindTooltip(`📍 ${id}<br>Lon: ${lon}<br>Lat: ${lat}`)
+                            .addTo(treeMarkersLayer);
+                        } else {
+                            console.warn("Data koordinat pohon tidak valid:", tree);
+                        }
+                    });
+                },
+                error: function(error) {
+                    console.error("Error parsing CSV:", error);
+                    alert("Gagal memuat atau mem-parsing file CSV.");
+                }
+            });
+        }
+    });
+  </script>
+</body>
+</html>

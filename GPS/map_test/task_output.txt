@@ -1,0 +1,512 @@
+[INFO]    Fast orthophoto is turned on, automatically setting --skip-3dmodel
+[INFO]    Initializing ODM 3.5.5 - Mon May 19 10:40:42  2025
+[INFO]    ==============
+[INFO]    3d_tiles: False
+[INFO]    align: None
+[INFO]    auto_boundary: True
+[INFO]    auto_boundary_distance: 0
+[INFO]    bg_removal: False
+[INFO]    boundary: {}
+[INFO]    build_overviews: False
+[INFO]    camera_lens: auto
+[INFO]    cameras: {}
+[INFO]    cog: True
+[INFO]    copy_to: None
+[INFO]    crop: 3
+[INFO]    dem_decimation: 1
+[INFO]    dem_euclidean_map: False
+[INFO]    dem_gapfill_steps: 3
+[INFO]    dem_resolution: 5
+[INFO]    dsm: False
+[INFO]    dtm: False
+[INFO]    end_with: odm_postprocess
+[INFO]    fast_orthophoto: True
+[INFO]    feature_quality: high
+[INFO]    feature_type: dspsift
+[INFO]    force_gps: False
+[INFO]    gcp: None
+[INFO]    geo: None
+[INFO]    gltf: True
+[INFO]    gps_accuracy: 3
+[INFO]    ignore_gsd: False
+[INFO]    matcher_neighbors: 0
+[INFO]    matcher_order: 0
+[INFO]    matcher_type: flann
+[INFO]    max_concurrency: 16
+[INFO]    merge: all
+[INFO]    mesh_octree_depth: 11
+[INFO]    mesh_size: 200000
+[INFO]    min_num_features: 10000
+[INFO]    name: 7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce
+[INFO]    no_gpu: False
+[INFO]    optimize_disk_space: False
+[INFO]    orthophoto_compression: DEFLATE
+[INFO]    orthophoto_cutline: False
+[INFO]    orthophoto_kmz: False
+[INFO]    orthophoto_no_tiled: False
+[INFO]    orthophoto_png: False
+[INFO]    orthophoto_resolution: 5
+[INFO]    pc_classify: False
+[INFO]    pc_copc: False
+[INFO]    pc_csv: False
+[INFO]    pc_ept: True
+[INFO]    pc_filter: 5
+[INFO]    pc_las: False
+[INFO]    pc_quality: medium
+[INFO]    pc_rectify: False
+[INFO]    pc_sample: 0
+[INFO]    pc_skip_geometric: False
+[INFO]    primary_band: auto
+[INFO]    project_path: /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce
+[INFO]    radiometric_calibration: none
+[INFO]    rerun: None
+[INFO]    rerun_all: False
+[INFO]    rerun_from: ['odm_postprocess']
+[INFO]    rolling_shutter: False
+[INFO]    rolling_shutter_readout: 0
+[INFO]    sfm_algorithm: incremental
+[INFO]    sfm_no_partial: False
+[INFO]    skip_3dmodel: True
+[INFO]    skip_band_alignment: False
+[INFO]    skip_orthophoto: False
+[INFO]    skip_report: False
+[INFO]    sky_removal: False
+[INFO]    sm_cluster: None
+[INFO]    sm_no_align: False
+[INFO]    smrf_scalar: 1.25
+[INFO]    smrf_slope: 0.15
+[INFO]    smrf_threshold: 0.5
+[INFO]    smrf_window: 18.0
+[INFO]    split: 999999
+[INFO]    split_image_groups: None
+[INFO]    split_overlap: 150
+[INFO]    texturing_keep_unseen_faces: False
+[INFO]    texturing_single_material: False
+[INFO]    texturing_skip_global_seam_leveling: False
+[INFO]    tiles: False
+[INFO]    use_3dmesh: False
+[INFO]    use_exif: False
+[INFO]    use_fixed_camera_params: False
+[INFO]    use_hybrid_bundle_adjustment: False
+[INFO]    video_limit: 500
+[INFO]    video_resolution: 4000
+[INFO]    ==============
+[INFO]    Running dataset stage
+[INFO]    Loading dataset from: /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/images
+[INFO]    Loading images database: /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/images.json
+[INFO]    Found 132 usable images
+[INFO]    Coordinates file already exist: /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_georeferencing/coords.txt
+[INFO]    Model geo file already exist: /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_georeferencing/odm_georeferencing_model_geo.txt
+[INFO]    Finished dataset stage
+[INFO]    Running split stage
+[INFO]    Normal dataset, will process all at once.
+[INFO]    Finished split stage
+[INFO]    Running merge stage
+[INFO]    Normal dataset, nothing to merge.
+[INFO]    Finished merge stage
+[INFO]    Running opensfm stage
+[WARNING] /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/opensfm/image_list.txt already exists, not rerunning OpenSfM setup
+[WARNING] /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/opensfm/exif already exists, not rerunning photo to metadata
+[WARNING] Detect features already done: /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/opensfm/features exists
+[WARNING] Match features already done: /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/opensfm/matches exists
+[WARNING] Found a valid OpenSfM tracks file in: /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/opensfm/tracks.csv
+[WARNING] Found a valid OpenSfM reconstruction file in: /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/opensfm/reconstruction.json
+[INFO]    Already extracted cameras
+[INFO]    Export reconstruction stats
+[WARNING] Found existing reconstruction stats /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/opensfm/stats/stats.json
+[WARNING] Will skip exporting /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/opensfm/reconstruction.geocoords.json
+[INFO]    Undistorting /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/opensfm ...
+[WARNING] Already undistorted (nominal)
+[WARNING] Found a valid OpenSfM NVM reconstruction file in: /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/opensfm/undistorted/reconstruction.nvm
+[INFO]    running "/code/SuperBuild/install/bin/opensfm/bin/opensfm" export_ply --no-cameras --point-num-views "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/opensfm"
+[INFO]    Finished opensfm stage
+[INFO]    Running odm_filterpoints stage
+[INFO]    Filtering /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/opensfm/reconstruction.ply (statistical, meanK 16, standard deviation 5)
+[INFO]    Boundary [(3.605965505936183, -661.3442668560892), (-23.59183550567832, -663.0731615219265), (-50.84172503929585, -663.4642843194306), (-78.07794218184426, -662.5166913717985), (-105.23475901572965, -660.2326694615185), (-132.24663923599292, -656.6177305132151), (-159.0483963068109, -651.6805982943624), (-180.39804698270746, -647.2029710952193), (-207.97747325780801, -640.6791352704167), (-235.18774533935357, -632.7553558181971), (-261.95785106997937, -623.4523118697107), (-288.2179270184133, -612.7942820917815), (-313.89944080694113, -600.8090813402086), (-338.9353699631756, -587.5279880557209), (-363.2603768329136, -572.9856626465917), (-386.81097909563687, -557.2200570236892), (-409.52571543690283, -540.2723155673593), (-431.3453059484018, -522.1866677366197), (-452.21280683367513, -503.01031265221536), (-472.0737590169301, -482.79329591058195), (-490.87633026903495, -461.5883789844811), (-508.57145047560334, -439.4509015213698), (-525.1129396994365, -416.4386369269341), (-540.457628697739, -392.6116415821016), (-554.5654715835117, -368.03209812380373), (-564.5122723412933, -349.6287636458874), (-578.0845162832411, -322.8046684972942), (-590.18378841097, -295.28475752286613), (-600.7745594888693, -267.1498423088342), (-609.8257299599936, -238.48254039138556), (-617.310721269343, -209.36703264713287), (-623.2075539109064, -179.88881609775126), (-627.4989119707607, -150.13445285335183), (-630.1721939739073, -120.19131591916084), (-631.2195498890942, -90.14733263291419), (-630.6379041795153, -60.0907264649868), (-623.1939405903686, 100.06118117645383), (-620.8518870197004, 131.34493325650692), (-616.7452220269479, 162.44627827219665), (-610.887077839463, 193.2657608408481), (-603.296187536791, 223.70482691563666), (-596.0384208392352, 249.6589591987431), (-587.460337292403, 277.4951574727893), (-577.4330374439014, 304.8427480328828), (-565.9841644715052, 331.6263392660767), (-553.1452805340523, 357.7720943875611), (-538.9517797612352, 383.2079349979758), (-523.4427906790515, 407.8637397773564), (-506.6610683412291, 431.6715378072113), (-488.65287646162324, 454.56569594703615), (-469.4678598756436, 476.48309976793826), (-449.158907679026, 497.36332755349576), (-427.78200742427725, 517.1488168612123), (-405.3960907740984, 535.7850232198834), (-382.0628710393794, 553.2205704860389), (-357.8466730483342, 569.4073924887925), (-332.8142558162799, 584.3008655291051), (-307.03462850512005, 597.8599314019084), (-280.5788601794047, 610.0472105890512), (-253.51988388365135, 620.8291052989662), (-225.93229558109306, 630.1758920904249), (-197.89214850822464, 638.0618038196117), (-178.67628446163144, 642.925443964079), (-151.0537900425261, 649.1712129954249), (-123.14855407178402, 653.9992181882262), (-95.0332960030064, 657.3968780376017), (-66.78128259512596, 659.3553384337574), (-38.46613698382862, 659.869495742023), (-18.776689162943512, 659.7243700381368), (6.555030372343026, 658.9587617311627), (31.825350825907663, 657.0370242688805), (56.98153455078136, 653.9631682056934), (159.08639915834647, 639.1125874798745), (187.87429248623084, 634.1483123023063), (216.36095463379752, 627.6755300574005), (244.46739568840712, 619.7121889535338), (272.1156800419558, 610.2803703267127), (299.2291424975265, 599.4062274191529), (325.7326008512173, 587.1199128534645), (351.55256436381023, 573.4554950296879), (376.6174375405535, 558.4508636463434), (400.8577186567709, 542.1476246509701), (424.20619247760624, 524.5909848660231), (446.5981166367419, 505.829626634717), (467.97140115930233, 485.9155728276819), (488.2667806292884, 464.90404259972274), (507.4279785254039, 442.8532982710749), (525.4018632679945, 419.8244837652892), (542.1385955470614, 395.8814550731331), (557.5917665198212, 371.09060318768024), (571.7185264969012, 345.5206700079143), (584.4797037587268, 319.2425577249378), (595.8399131739279, 292.32913222163916), (605.7676543181296, 264.85502102412283), (614.2353988200193, 236.8964063692838), (621.2196666947566, 208.5308139640838), (626.7010914504062, 179.8368980064988), (630.664473789162, 150.8942231014371), (633.0988237527199, 121.78304362297058), (633.9973911965499, 92.58408119529486), (633.3576845065691, 63.37830084934831), (625.3935538673541, -101.61490697972476), (623.2364737645257, -130.55727120488882), (619.5687343939207, -159.34721961431205), (614.4003739667824, -187.90595719218254), (607.7455377342412, -216.15532172098756), (599.6224392728182, -244.01799770444632), (590.0533106360817, -271.41772796958685), (579.0643415080849, -298.2795223817229), (566.6856075245887, -324.5298630744219), (552.9509879596299, -350.0969056673348), (537.8980730011826, -374.9106758926064), (521.5680608713301, -398.9032611101866), (504.00564507045783, -422.0089961718768), (485.2588920565322, -444.1646431479603), (465.3791096919449, -465.30956439860165), (446.37803517864086, -484.4888680446893), (425.4869073906448, -504.50403155758977), (403.5807235336397, -523.4028436765075), (380.7190635642037, -541.1339038293809), (356.9641061219154, -557.6489874701947), (332.38045941700693, -572.9031772352755), (307.03498551039957, -586.8549851160496), (280.99661846412346, -599.4664652943611), (254.33617685560603, -610.703317342326), (227.12617116689216, -620.5349795166403), (199.44060657231603, -628.9347118809819), (171.35478166106623, -635.879669027403), (142.9450836412143, -641.3509622123092), (64.38556911156047, -654.3658031523228), (22.496701151831076, -659.6766839548945), (3.605965505936183, -661.3442668560892)]
+[INFO]    running "/code/SuperBuild/install/bin/FPCFilter" --input "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/opensfm/reconstruction.ply" --output "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_filterpoints/point_cloud.ply" --concurrency 16 --meank 16 --std 5 --stats "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_filterpoints/point_cloud_stats.json" --boundary "/tmp/tmpx3f7nndk.boundary.json"
+*** FPCFilter - v0.2 ***
+
+?> Parameters:
+input = /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/opensfm/reconstruction.ply
+output = /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_filterpoints/point_cloud.ply
+stats = /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_filterpoints/point_cloud_stats.json
+std = 5
+meanK = 16
+boundary = 132 polygon vertexes
+concurrency = 16
+verbose = no
+
+-> Setting num_threads to 16
+
+-> Cropping
+
+-> Done cropping in 0.04872s
+
+?> Skipping sampling
+
+-> Statistical filtering
+
+-> Spacing estimation completed (0.61 meters)
+
+?> Done in 0.03515s
+
+-> Writing output
+
+?> Done in 0.006179s
+
+?> Pipeline done in 0.09027s
+
+[INFO]    Finished odm_filterpoints stage
+[INFO]    Running odm_meshing stage
+[INFO]    Writing ODM 2.5D Mesh file in: /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_meshing/odm_25dmesh.ply
+[INFO]    ODM 2.5D DSM resolution: 0.61
+[INFO]    Created temporary directory: /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_meshing/tmp
+[INFO]    Creating DSM for 2.5D mesh
+[INFO]    running renderdem "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_filterpoints/point_cloud.ply" --outdir "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_meshing/tmp" --output-type max --radiuses 0.9581857593448869,1.3550792961383018,1.916371518689774 --resolution 4.88 --max-tiles 0 --decimation 1 --classification -1 --tile-size 4096 --force
+Reading 43296 points
+Point cloud bounds are [minx: -115.261047363, maxx: 124.098472595, miny: -163.010177612, maxy: 163.348739624]
+DEM resolution is (50, 67), max tile size is 4096, will split DEM generation into 1 tiles
+r0.958186_x0_y0.tif
+r1.35508_x0_y0.tif
+r1.91637_x0_y0.tif
+[INFO]    Generated 3 tiles
+[INFO]    running gdalbuildvrt -input_file_list "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_meshing/tmp/tiles_list.txt" "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_meshing/tmp/tiles.vrt"
+0...10...20...30...40...50...60...70...80...90...100 - done.
+[INFO]    running gdal_translate -co NUM_THREADS=16 -co BIGTIFF=IF_SAFER -co COMPRESS=DEFLATE --config GDAL_CACHEMAX 34.05% -outsize 10% 0 "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_meshing/tmp/tiles.vrt" "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_meshing/tmp/tiles.small.tif"
+0
+...10...20...30...40...50
+...60...70...
+80...90.
+Input file size is 50, 67
+0...10...20...30...40...50...60...70...80...90...100 - done.
+[INFO]    running gdalbuildvrt -resolution highest -r bilinear "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_meshing/tmp/merged.vrt" "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_meshing/tmp/tiles.small_filled.tif" "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_meshing/tmp/tiles.vrt"
+0...10...20...30...40...50...60...70...80...90...100 - done.
+[INFO]    running gdal_translate -co NUM_THREADS=16 -co TILED=YES -co BIGTIFF=IF_SAFER -co COMPRESS=DEFLATE --config GDAL_CACHEMAX 34.05% "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_meshing/tmp/merged.vrt" "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_meshing/tmp/tiles.tif"
+Input file size is 50, 67
+0...10...20...30...40...50...60...70...80...90...100 - done.
+[INFO]    running fastrasterfilter "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_meshing/tmp/tiles.tif" --output "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_meshing/tmp/mesh_dsm.tif" --window-size 512 --radius 4 --co TILED=YES --co BIGTIFF=IF_SAFER --co COMPRESS=DEFLATE
+Input: /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_meshing/tmp/tiles.tif
+Size: 50x67
+Blocks: 1
+Smoothing...1... done
+Wrote /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_meshing/tmp/mesh_dsm.tif
+[INFO]    Completed smoothing to create /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_meshing/tmp/mesh_dsm.tif in 0:00:00.055478
+[INFO]    Completed mesh_dsm.tif in 0:00:00.320596
+[INFO]    Sampling points from DSM: /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_meshing/tmp/mesh_dsm.tif
+[INFO]    running "/code/SuperBuild/install/bin/dem2points" -inputFile "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_meshing/tmp/mesh_dsm.tif" -outputFile "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_meshing/tmp/dsm_points.ply" -skirtHeightThreshold 1.5 -skirtIncrements 0.2 -skirtHeightCap 100 -verbose
+Running with parameters:
+--inputFile /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_meshing/tmp/mesh_dsm.tif
+--outputFile /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_meshing/tmp/dsm_points.ply
+--skirtHeightThreshold 1.500000
+--skirtIncrements 0.200000
+--skirtHeightCap 100.000000
+--verbose
+Raster Size is 50x67
+Extent is (-115.261047, 128.738953), (-163.010178, 163.949822)
+Read nodata value: -9999
+Calculating skirts and vertex count... 4705 skirt points will be added
+Total vertices: 7603
+Sampling and writing to file... done!
+[INFO]    running "/code/SuperBuild/install/bin/PoissonRecon" --in "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_meshing/tmp/dsm_points.ply" --out "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_meshing/odm_25dmesh.dirty.ply" --depth 11 --pointWeight 4 --samplesPerNode 1.0 --threads 15 --bType 2 --linearFit
+[INFO]    running "/code/SuperBuild/install/bin/OpenMVS/ReconstructMesh" -i "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_meshing/odm_25dmesh.dirty.ply" -o "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_meshing/odm_25dmesh.ply" --archive-type 3 --remove-spikes 0 --remove-spurious 20 --smooth 0 --target-face-num 400000 -v 0
+10:40:49 [App     ] OpenMVS x64 v2.2.0
+10:40:49 [App     ] Build date: Apr 16 2025, 02:46:54
+10:40:49 [App     ] CPU: AMD Ryzen 7 6800HS with Radeon Graphics          (16 cores)
+10:40:49 [App     ] RAM: 7.39GB Physical Memory 2.00GB Virtual Memory
+10:40:49 [App     ] OS: Linux 5.15.167.4-microsoft-standard-WSL2 (x86_64)
+10:40:49 [App     ] Disk:
+10:40:49 [App     ] SSE & AVX compatible CPU & OS detected
+10:40:49 [App     ] Command line: ReconstructMesh -i /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_meshing/odm_25dmesh.dirty.ply -o /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_meshing/odm_25dmesh.ply --archive-type 3 --remove-spikes 0 --remove-spurious 20 --smooth 0 --target-face-num 400000 -v 0
+10:40:50 [App     ] MEMORYINFO: {
+10:40:50 [App     ] 	VmPeak:	  119000 kB
+10:40:50 [App     ] 	VmSize:	   68732 kB
+10:40:50 [App     ] } ENDINFO
+[INFO]    Finished odm_meshing stage
+[INFO]    Running mvs_texturing stage
+[INFO]    Writing MVS Textured file in: /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_texturing_25d/odm_textured_model_geo.obj
+[INFO]    running "/code/SuperBuild/install/bin/texrecon" "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/opensfm/undistorted/reconstruction.nvm" "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_meshing/odm_25dmesh.ply" "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_texturing_25d/odm_textured_model_geo" -d gmi -o gauss_clamping -t none --no_intermediate_results   --nadir_mode  --max_texture_size=8192
+/code/SuperBuild/install/bin/texrecon (built on Apr 16 2025, 02:44:39)
+Load and prepare mesh:
+Reading PLY: 74298 verts... 148900 faces... done.
+Generating texture views:
+NVM: Loading file...
+NVM: Number of views: 132
+NVM: Number of features: 43348
+
+
+Loading 100%... done. (Took 1.105s)
+Building adjacency graph:
+
+
+Adding edges 100%... done. (Took 0.188s)
+223350 total edges.
+View selection:
+Building BVH from 148900 faces... done. (Took: 83 ms)
+
+
+Calculating face qualities 100%... done. (Took 1.81s)
+
+
+Postprocessing face infos 100%... done. (Took 0.127s)
+Maximum quality of a face within an image: 9999.66
+Clamping qualities to 9946.66 within normalization.
+Optimizing:
+Time[s]	Energy
+0	45210
+0	44153
+0	41838
+0	40723
+0	40263
+0	39993
+0	39825
+1	39786
+1	39698
+1	39640
+1	39580
+1	39545
+1	39529
+1	39514
+1	39497
+1	39486
+1	39477
+11416 faces have not been seen
+Took: 4.255s
+Generating texture patches:
+Running... done. (Took 0.86s)
+1731 texture patches.
+Running global seam leveling:
+Create matrices for optimization...  done.
+Lhs dimensionality: 78181 x 78181
+Calculating adjustments:
+Color channel 1: CG took 82 iterations. Residual is 9.69008e-05
+Color channel 0: CG took 86 iterations. Residual is 9.92085e-05
+Color channel 2: CG took 87 iterations. Residual is 8.7804e-05
+Took 0.101 seconds
+
+
+Adjusting texture patches 100%... done. (Took 0.185s)
+Running local seam leveling:
+
+
+Blending texture patches 100%... done. (Took 3.225s)
+Generating texture atlases:
+Sorting texture patches... done.
+
+Working on atlas 6 100%... done.
+Finalizing texture atlases... done. (Took: 0s)
+Building objmodel:
+Saving model... done.
+Whole texturing procedure took: 21.015s
+[INFO]    Generating glTF Binary
+[INFO]    Converting /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_texturing_25d/odm_textured_model_geo.obj --> /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_texturing_25d/odm_textured_model_geo.glb
+[INFO]    Loading /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_texturing_25d/odm_textured_model_geo.obj
+[INFO]    Loading odm_textured_model_geo_material0000_map_Kd.png
+[INFO]    Loading odm_textured_model_geo_material0001_map_Kd.png
+[INFO]    Loading odm_textured_model_geo_material0002_map_Kd.png
+[INFO]    Loading odm_textured_model_geo_material0003_map_Kd.png
+[INFO]    Loading odm_textured_model_geo_material0004_map_Kd.png
+[INFO]    Loading odm_textured_model_geo_material0005_map_Kd.png
+[INFO]    Writing...
+[INFO]    Wrote /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_texturing_25d/odm_textured_model_geo.glb
+[INFO]    Compressing with draco
+[INFO]    running draco_transcoder -i "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_texturing_25d/odm_textured_model_geo.glb" -o "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_texturing_25d/odm_textured_model_geo_compressed.glb" -qt 16 -qp 16
+Transcode	/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_texturing_25d/odm_textured_model_geo.glb	1023
+[INFO]    Finished mvs_texturing stage
+[INFO]    Running odm_georeferencing stage
+[INFO]    Georeferencing point cloud
+[INFO]    las scale calculated as the minimum of 1/10 estimated spacing or 0.001, which ever is less.
+[INFO]    running pdal translate -i "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_filterpoints/point_cloud.ply" -o "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_georeferencing/odm_georeferenced_model.laz" ferry transformation --filters.ferry.dimensions="views => UserData" --filters.transformation.matrix="1 0 0 698318.0 0 1 0 9194395.0 0 0 1 0 0 0 0 1" --writers.las.offset_x=698318.0 --writers.las.offset_y=9194395.0 --writers.las.scale_x=0.001 --writers.las.scale_y=0.001 --writers.las.scale_z=0.001 --writers.las.offset_z=0 --writers.las.a_srs="+proj=utm +zone=49 +south +datum=WGS84 +units=m +no_defs +type=crs"
+[INFO]    Calculating cropping area and generating bounds shapefile from point cloud
+[INFO]    running pdal translate -i "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_georeferencing/odm_georeferenced_model.laz" -o "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_georeferencing/odm_georeferenced_model.decimated.las" decimation --filters.decimation.step=4
+[INFO]    running pdal info --boundary --filters.hexbin.edge_size=1 --filters.hexbin.threshold=0 "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_georeferencing/odm_georeferenced_model.decimated.las" > "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_georeferencing/odm_georeferenced_model.boundary.json"
+[INFO]    running pdal info --summary "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_georeferencing/odm_georeferenced_model.laz" > "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_georeferencing/odm_georeferenced_model.summary.json"
+[INFO]    running ogr2ogr -overwrite -f GPKG -a_srs "+proj=utm +zone=49 +south +datum=WGS84 +units=m +no_defs" /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_georeferencing/odm_georeferenced_model.bounds.gpkg /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_georeferencing/odm_georeferenced_model.bounds.geojson
+[INFO]    Creating Entwine Point Tile output
+[INFO]    running entwine build --threads 16 --tmp "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/entwine_pointcloud-tmp" -i /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_georeferencing/odm_georeferenced_model.laz -o "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/entwine_pointcloud"
+1/1: /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_georeferencing/odm_georeferenced_model.laz
+Dimensions: [
+X:int32, Y:int32, Z:int32, Intensity:uint16, ReturnNumber:uint8,
+NumberOfReturns:uint8, ScanDirectionFlag:uint8, EdgeOfFlightLine:uint8,
+Classification:uint8, ScanAngleRank:float32, UserData:uint8,
+PointSourceId:uint16, GpsTime:float64, Red:uint16, Green:uint16, Blue:uint16
+]
+Points: 43,296
+Bounds: [(698202, 9194231, 48), (698443, 9194559, 86)]
+Scale: 0.001
+SRS: EPSG:32749
+
+Adding 0 - /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_georeferencing/odm_georeferenced_model.laz
+Joining
+Done 0
+Saving
+Wrote 43,296 points.
+[INFO]    Finished odm_georeferencing stage
+[INFO]    Running odm_dem stage
+[INFO]    Create DSM: False
+[INFO]    Create DTM: False
+[INFO]    DEM input file /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_georeferencing/odm_georeferenced_model.laz found: True
+[WARNING] DEM will not be generated
+[INFO]    Finished odm_dem stage
+[INFO]    Running odm_orthophoto stage
+[INFO]    Creating GeoTIFF
+[INFO]    running "/code/SuperBuild/install/bin/odm_orthophoto" -inputFiles /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_texturing_25d/odm_textured_model_geo.obj -logFile "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_orthophoto/odm_orthophoto_log.txt" -outputFile "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_orthophoto/odm_orthophoto.tif" -resolution 20.0 -verbose -outputCornerFile "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_orthophoto/odm_orthophoto_corners.txt"   -inpaintThreshold 1.0 -utm_north_offset 9194395.0 -utm_east_offset 698318.0 -a_srs "+proj=utm +zone=49 +south +datum=WGS84 +units=m +no_defs +type=crs" -co TILED=YES -co COMPRESS=DEFLATE -co PREDICTOR=2 -co BIGTIFF=IF_SAFER -co BLOCKXSIZE=512 -co BLOCKYSIZE=512 -co NUM_THREADS=16 --config GDAL_CACHEMAX 2656501760.0
+Inpaint threshold was set to: 1
+
+Reading mesh file... /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_texturing_25d/odm_textured_model_geo.obj
+Found material0000
+Loading odm_textured_model_geo_material0000_map_Kd.png
+Found material0001
+Loading odm_textured_model_geo_material0001_map_Kd.png
+Found material0002
+Loading odm_textured_model_geo_material0002_map_Kd.png
+Found material0003
+Loading odm_textured_model_geo_material0003_map_Kd.png
+Found material0004
+Loading odm_textured_model_geo_material0004_map_Kd.png
+Found material0005
+Loading odm_textured_model_geo_material0005_map_Kd.png
+Mesh file read.
+
+Boundary points:
+Point 1: -110.765 -148.828
+Point 2: -110.765 154.698
+Point 3: 118.82 154.698
+Point 4: 118.82 -148.828
+
+Model bounds x : -110.765 -> 118.82
+Model bounds y : -148.828 -> 154.698
+Model area : 69685.1m2
+Model resolution, width x height : 4592x6071
+Translating and scaling mesh...
+Rendering the ortho photo...
+Texture channels: 3
+Texture depth: 8bit
+Rendering material0000 ... done
+Rendering material0001 ... done
+Rendering material0002 ... done
+Rendering material0003 ... done
+Rendering material0004 ... done
+Rendering material0005 ... done
+... model rendered
+
+Edge inpainting
+Block [(1024, 2048), (4096, 6071)]
+Block [(0, 1024), (0, 1024)]
+Block [(1024, 2048), (3072, 4096)]
+Block [(2048, 3072), (0, 1024)]
+Block [(3072, 4592), (3072, 4096)]
+Block [(2048, 3072), (3072, 4096)]
+Block [(3072, 4592), (2048, 3072)]
+Block [(1024, 2048), (2048, 3072)]
+Block [(0, 1024), (1024, 2048)]
+Block [(0, 1024), (2048, 3072)]
+Block [(2048, 3072), (2048, 3072)]
+Block [(2048, 3072), (1024, 2048)]
+Block [(0, 1024), (3072, 4096)]
+Block [(0, 1024), (4096, 6071)]
+Block [(3072, 4592), (4096, 6071)]
+Block [(2048, 3072), (4096, 6071)]
+Block [(1024, 2048), (1024, 2048)]
+Block [(3072, 4592), (1024, 2048)]
+Block [(3072, 4592), (0, 1024)]
+Block [(1024, 2048), (0, 1024)]
+
+Writing ortho photo to /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_orthophoto/odm_orthophoto.tif
+Set GDAL_CACHEMAX to 2656501760
+Set TILED=YES
+Set COMPRESS=DEFLATE
+Set PREDICTOR=2
+Set BIGTIFF=IF_SAFER
+Set BLOCKXSIZE=512
+Set BLOCKYSIZE=512
+Set NUM_THREADS=16
+Writing corner coordinates to /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_orthophoto/odm_orthophoto_corners.txt
+Orthophoto generation done.
+[INFO]    Cropping /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_orthophoto/odm_orthophoto.tif
+[INFO]    running gdalwarp -cutline /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_georeferencing/odm_georeferenced_model.bounds.gpkg -crop_to_cutline -co TILED=YES -co COMPRESS=DEFLATE -co PREDICTOR=2 -co BIGTIFF=IF_SAFER -co BLOCKXSIZE=512 -co BLOCKYSIZE=512 -co NUM_THREADS=16 -dstalpha /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_orthophoto/odm_orthophoto.original.tif /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_orthophoto/odm_orthophoto.tif --config GDAL_CACHEMAX 33.45%
+Using band 4 of source image as alpha.
+Creating output file that is 4388P x 6111L.
+Processing /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_orthophoto/odm_orthophoto.original.tif [1/1] : 0...10...20...30...40...50...60...70...80...90...100 - done.
+[INFO]    Optimizing /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_orthophoto/odm_orthophoto.tif as Cloud Optimized GeoTIFF
+[INFO]    running gdal_translate -of COG -co NUM_THREADS=16 -co BLOCKSIZE=256 -co COMPRESS=DEFLATE -co PREDICTOR=2 -co BIGTIFF=IF_SAFER -co RESAMPLING=NEAREST --config GDAL_CACHEMAX 33.5% --config GDAL_NUM_THREADS 16 "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_orthophoto/odm_orthophoto.tif" "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_orthophoto/odm_orthophoto_cogeo.tif"
+Input file size is 4388, 6111
+0...10...20...30...40...50...60...70...80...90...100 - done.
+[INFO]    Wrote /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_orthophoto/odm_orthophoto_extent.dxf
+[INFO]    Wrote /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_orthophoto/odm_orthophoto.tfw
+[INFO]    Finished odm_orthophoto stage
+[INFO]    Running odm_report stage
+[INFO]    Exporting shots.geojson
+[INFO]    Wrote /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_report/shots.geojson
+[INFO]    Copied /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/opensfm/camera_mappings.npz --> /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_report/camera_mappings.npz
+[INFO]    running pdal info --dimensions "X,Y,Z" "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_georeferencing/odm_georeferenced_model.laz" > "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_georeferencing/odm_georeferenced_model.info.json"
+[INFO]    running pdal translate -i "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_georeferencing/odm_georeferenced_model.laz" -o "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/opensfm/stats/overlap.tif" --writer gdal --writers.gdal.resolution=0.2331135714280286 --writers.gdal.data_type=uint8_t --writers.gdal.dimension=UserData --writers.gdal.output_type=max --writers.gdal.radius=3.296723742867473
+[INFO]    Cropping /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/opensfm/stats/overlap.tif
+[INFO]    running gdalwarp -cutline /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_georeferencing/odm_georeferenced_model.bounds.gpkg -crop_to_cutline -co TILED=YES -co COMPRESS=DEFLATE -co PREDICTOR=2 -co BIGTIFF=IF_SAFER -co BLOCKXSIZE=512 -co BLOCKYSIZE=512 -co NUM_THREADS=16  /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/opensfm/stats/overlap.original.tif /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/opensfm/stats/overlap.tif --config GDAL_CACHEMAX 33.8%
+Creating output file that is 940P x 1309L.
+Processing /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/opensfm/stats/overlap.original.tif [1/1] : 0Using internal nodata values (e.g. 255) for image /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/opensfm/stats/overlap.original.tif.
+Copying nodata values from source /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/opensfm/stats/overlap.original.tif to destination /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/opensfm/stats/overlap.tif.
+...10...20...30...40...50...60...70...80...90...100 - done.
+[INFO]    running gdaldem color-relief "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/opensfm/stats/overlap.tif" "/code/opendm/report/overlap_color_map.txt" "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/opensfm/stats/overlap.png" -of PNG -alpha
+0...10...20...30...40...50...60...70...80...90...100 - done.
+[INFO]    running gdal_translate -of png "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_orthophoto/odm_orthophoto.tif" "/var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/opensfm/stats/ortho.png" -b 1 -b 2 -b 3 -b 4 -outsize 1400 0 -co WORLDFILE=YES --config GDAL_CACHEMAX 33.8%
+Input file size is 4388, 6111
+0...10...20...30...40...50...60...70...80...90...100 - done.
+[INFO]    Exporting report to /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_report/report.pdf
+[INFO]    Finished odm_report stage
+[INFO]    Running odm_postprocess stage
+[INFO]    Post Processing
+[INFO]    Adding TIFFTAGs to /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce/odm_orthophoto/odm_orthophoto.tif
+[INFO]    Finished odm_postprocess stage
+[INFO]    No more stages to run
+[INFO]    MMMMMMMMMMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNMMMMMMMMMMM
+[INFO]    MMMMMMdo:..---../sNMMMMMMMMMMMMMMMMMMMMMMMMMMNs/..---..:odMMMMMM
+[INFO]    MMMMy-.odNMMMMMNy/`/mMMMMMMMMMMMMMMMMMMMMMMm/`/hNMMMMMNdo.-yMMMM
+[INFO]    MMN/`sMMMMMMMMMNNMm/`yMMMMMMMMMMMMMMMMMMMMy`/mMNNMMMMMMMMNs`/MMM
+[INFO]    MM/ hMMMMMMMMNs.+MMM/ dMMMMMMMMMMMMMMMMMMh +MMM+.sNMMMMMMMMh +MM
+[INFO]    MN /MMMMMMNo/./mMMMMN :MMMMMMMMMMMMMMMMMM: NMMMMm/./oNMMMMMM: NM
+[INFO]    Mm +MMMMMN+ `/MMMMMMM`-MMMMMMMMMMMMMMMMMM-`MMMMMMM:` oNMMMMM+ mM
+[INFO]    MM..NMMNs./mNMMMMMMMy sMMMMMMMMMMMMMMMMMMo hMMMMMMMNm/.sNMMN`-MM
+[INFO]    MMd`:mMNomMMMMMMMMMy`:MMMMMMMNmmmmNMMMMMMN:`hMMMMMMMMMdoNMm-`dMM
+[INFO]    MMMm:.omMMMMMMMMNh/  sdmmho/.`..`-``-/sddh+  /hNMMMMMMMMdo.:mMMM
+[INFO]    MMMMMd+--/osss+:-:/`  ```:- .ym+ hmo``:-`   `+:-:ossso/-:+dMMMMM
+[INFO]    MMMMMMMNmhysosydmNMo   /ds`/NMM+ hMMd..dh.  sMNmdysosyhmNMMMMMMM
+[INFO]    MMMMMMMMMMMMMMMMMMMs .:-:``hmmN+ yNmds -:.:`-NMMMMMMMMMMMMMMMMMM
+[INFO]    MMMMMMMMMMMMMMMMMMN.-mNm- //:::. -:://: +mMd`-NMMMMMMMMMMMMMMMMM
+[INFO]    MMMMMMMMMMMMMMMMMM+ dMMN -MMNNN+ yNNNMN :MMMs sMMMMMMMMMMMMMMMMM
+[INFO]    MMMMMMMMMMMMMMMMMM`.mmmy /mmmmm/ smmmmm``mmmh :MMMMMMMMMMMMMMMMM
+[INFO]    MMMMMMMMMMMMMMMMMM``:::- ./////. -:::::` :::: -MMMMMMMMMMMMMMMMM
+[INFO]    MMMMMMMMMMMMMMMMMM:`mNNd /NNNNN+ hNNNNN .NNNy +MMMMMMMMMMMMMMMMM
+[INFO]    MMMMMMMMMMMMMMMMMMd`/MMM.`ys+//. -/+oso +MMN.`mMMMMMMMMMMMMMMMMM
+[INFO]    MMMMMMMMMMMMMMMMMMMy /o:- `oyhd/ shys+ `-:s-`hMMMMMMMMMMMMMMMMMM
+[INFO]    MMMMMMMMNmdhhhdmNMMM`  +d+ sMMM+ hMMN:`hh-  sMMNmdhhhdmNMMMMMMMM
+[INFO]    MMMMMms:::/++//::+ho    .+- /dM+ hNh- +/`   -h+:://++/::/smMMMMM
+[INFO]    MMMN+./hmMMMMMMNds-  ./oso:.``:. :-``.:os+-  -sdNMMMMMMmy:.oNMMM
+[INFO]    MMm-.hMNhNMMMMMMMMNo`/MMMMMNdhyyyyhhdNMMMM+`oNMMMMMMMMNhNMh.-mMM
+[INFO]    MM:`mMMN/-sNNMMMMMMMo yMMMMMMMMMMMMMMMMMMy sMMMMMMMNNs-/NMMm`:MM
+[INFO]    Mm /MMMMMd/.-oMMMMMMN :MMMMMMMMMMMMMMMMMM-`MMMMMMMo-./dMMMMM/ NM
+[INFO]    Mm /MMMMMMm:-`sNMMMMN :MMMMMMMMMMMMMMMMMM-`MMMMMNs`-/NMMMMMM/ NM
+[INFO]    MM:`mMMMMMMMMd/-sMMMo yMMMMMMMMMMMMMMMMMMy sMMMs-/dMMMMMMMMd`:MM
+[INFO]    MMm-.hMMMMMMMMMdhMNo`+MMMMMMMMMMMMMMMMMMMM+`oNMhdMMMMMMMMMh.-mMM
+[INFO]    MMMNo./hmNMMMMMNms--yMMMMMMMMMMMMMMMMMMMMMMy--smNMMMMMNmy/.oNMMM
+[INFO]    MMMMMms:-:/+++/:-+hMMMMMMMMMMMMMMMMMMMMMMMMMNh+-:/+++/:-:smMMMMM
+[INFO]    MMMMMMMMNdhhyhdmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMmdhyhhmNMMMMMMMM
+[INFO]    MMMMMMMMMMMMMMMNNNNNMMMMMMNNNNNNMMMMMMMMNNMMMMMMMNNMMMMMMMMMMMMM
+[INFO]    MMMMMMMMMMMMMh/-...-+dMMMm......:+hMMMMs../MMMMMo..sMMMMMMMMMMMM
+[INFO]    MMMMMMMMMMMM/  /yhy-  sMMm  -hhy/  :NMM+   oMMMy   /MMMMMMMMMMMM
+[INFO]    MMMMMMMMMMMy  /MMMMN`  NMm  /MMMMo  +MM: .` yMd``` :MMMMMMMMMMMM
+[INFO]    MMMMMMMMMMM+  sMMMMM:  hMm  /MMMMd  -MM- /s `h.`d- -MMMMMMMMMMMM
+[INFO]    MMMMMMMMMMMs  +MMMMM.  mMm  /MMMMy  /MM. +M/   yM: `MMMMMMMMMMMM
+[INFO]    MMMMMMMMMMMN-  smNm/  +MMm  :NNdo` .mMM` oMM+/yMM/  MMMMMMMMMMMM
+[INFO]    MMMMMMMMMMMMNo-    `:yMMMm      `:sNMMM` sMMMMMMM+  NMMMMMMMMMMM
+[INFO]    MMMMMMMMMMMMMMMNmmNMMMMMMMNmmmmNMMMMMMMNNMMMMMMMMMNNMMMMMMMMMMMM
+[INFO]    ODM app finished - Mon May 19 10:41:46  2025
+..100 - done.
+Postprocessing: /var/www/data/7337a8dd-f837-4d0f-a068-9a4ff0c4d4ce
+
+Found point cloud: odm_georeferencing/odm_georeferenced_model.laz
+
+Entwine point cloud is already built.
+
+Entwine point cloud is already built.
+
+Postprocessing: done (•̀ᴗ•́)و!
