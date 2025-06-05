@@ -7,7 +7,7 @@ from ultralytics import YOLO
 from rasterio.transform import Affine
 
 # Load model YOLO hanya sekali
-model = YOLO("models/best.pt")
+model = YOLO("D:/Semester 6/Protel/API/models/best.pt")
 
 def detect_trees_georeferenced(image_path, output_csv_path="tree_results/hasil_deteksi.csv", post_url=None):
     # Buka GeoTIFF
@@ -55,6 +55,13 @@ def send_csv_to_web(csv_path, api_url):
         files = {'file': (os.path.basename(csv_path), f, 'text/csv')}
         try:
             response = requests.post(api_url, files=files)
+            print(f"Status Code: {response.status_code}")
+            print(f"Response: {response.text}")
             return response.status_code, response.text
         except Exception as e:
             return 500, f"[❌] Error saat mengirim: {e}"
+
+if __name__ == "__main__":
+    image_path = "tree_input/odm_orthophoto.tif"
+    api_url = "http://localhost:8000/upload-tree-detection"
+    detect_trees_georeferenced(image_path, post_url=api_url)
