@@ -7,7 +7,7 @@ import numpy as np
 import tempfile
 
 # Load YOLO model sekali saja
-model = YOLO("runs/Tree_Training3/weights/best.pt")
+model = YOLO("best.pt")
 
 def detect_trees_from_geotiff(uploaded_file: UploadFile):
     # Simpan file sementara
