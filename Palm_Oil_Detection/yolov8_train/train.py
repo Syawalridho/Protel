@@ -17,7 +17,7 @@ if __name__ == "__main__":
 
     # Training model dengan optimasi
     model.train(
-        data="D:/Semester 6/Protel/Palm_Oil_Detection/Tree_Detection_2/data.yaml",  # Path dataset
+        data="D:/Semester 6/Protel/Palm_Oil_Detection/DATASET/data.yaml",  # Path dataset
         epochs=150,  # Gunakan epochs lebih banyak, tetapi ada Early Stopping
         imgsz=640,  # Ukuran gambar lebih besar untuk detail lebih baik
         batch=12,  # Gunakan batch size optimal (sesuai VRAM)
@@ -29,7 +29,7 @@ if __name__ == "__main__":
         patience=15,  # Early stopping jika loss stagnan 15 epoch
         workers=8,  # Bisa coba 6, jika error coba turunkan ke 2
         project="runs",  # Folder penyimpanan hasil training
-        name="Tree_Training",  # Nama eksperimen
+        name="Palm_Tree_Training",  # Nama eksperimen
         amp=True,  # Gunakan Mixed Precision untuk mempercepat training
         cache= "true",  # Cache di disk karena RAM tidak cukup
         verbose=True,  # Tampilkan info training lebih lengkap
