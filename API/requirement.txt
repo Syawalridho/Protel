@@ -1,0 +1,12 @@
+
+fastapi
+uvicorn[standard]
+python-multipart
+pandas
+scikit-learn
+joblib
+watchdog
+ultralytics
+rasterio
+pyproj
+opencv-python
