@@ -2,7 +2,7 @@ import requests
 import os
 
 # --- GANTI BAGIAN INI DENGAN INFORMASI DARI WEB LAIN ---
-API_ENDPOINT_URL = "https://website-sumber-data.com/api/v1/get-soil-csv"  # CONTOH URL
+API_ENDPOINT_URL = "http://localhost:9000/api/upload"  # CONTOH URL
 API_KEY = "abcde1234567890"  # CONTOH API KEY
 
 # Tentukan di mana file akan disimpan
