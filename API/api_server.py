@@ -13,7 +13,7 @@ from src.deteksi_pohon import detect_trees_and_health
 
 # --- KONFIGURASI PENTING ---
 # GANTI DENGAN URL DARI WEB TUJUAN ANDA
-DESTINATION_URL = "http://192.168.1.15:3001/api/receiver/terima-hasil-pohon"
+DESTINATION_URL = "http://192.168.186.41:8000/api/receiver/terima-hasil-pohon"
 # GANTI DENGAN API KEY DARI WEB TUJUAN ANDA (JIKA DIBUTUHKAN)
 DESTINATION_API_KEY = "HALO"
 # ----------------------------------------

@@ -10,7 +10,7 @@ from src.deteksi_pohon import detect_trees_and_health
 # --- Konfigurasi ---
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 WATCH_PATH = os.path.join(BASE_DIR, 'data_input', 'orthophoto')
-API_ENDPOINT_URL = "http://localhost:8000/api/send-tree-results" # Pastikan port sesuai
+API_ENDPOINT_URL = "http://192.168.186.41:8000/api/send-tree-results" # Pastikan port sesuai
 
 class OrthophotoHandler(FileSystemEventHandler):
     def on_created(self, event):
