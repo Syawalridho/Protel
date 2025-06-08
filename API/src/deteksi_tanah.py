@@ -24,7 +24,7 @@ def analyze_soil_data(input_csv_path: str):
         
         # 3. Siapkan fitur (fitur) sesuai dengan data CSV Anda
         # Pastikan urutan kolom ('pH', 'kelembaban', 'suhu') sama seperti saat training
-        feature_columns = ['pH', 'kelembaban', 'suhu']
+        feature_columns = ['temperature', 'kelembapan', 'pH']
         print(f"Menggunakan fitur: {feature_columns}")
         
         if not all(col in df.columns for col in feature_columns):

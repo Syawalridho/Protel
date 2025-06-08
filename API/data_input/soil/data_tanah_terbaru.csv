@@ -1,0 +1,2 @@
+sensor_id,temperature,kelembapan,pH,gps_lat,gps_long,timestamp
+SENSOR003,0.00,100.00,-1.24,-7.285308,112.795933,2025-06-08 21:21:56
