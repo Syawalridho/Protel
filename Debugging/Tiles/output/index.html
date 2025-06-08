@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pratinjau Peta Orthophoto</title>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <style>
+        /* Membuat peta memenuhi seluruh layar */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+        }
+        #map-container {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="map-container"></div>
+
+    <script>
+        // --- PENGATURAN PETA ---
+
+        // 3. Inisialisasi Peta
+        // GANTI KOORDINAT [lat, lng] ini agar peta langsung terpusat ke area orthophoto Anda.
+        // Anda bisa mendapatkan koordinat ini dari Google Maps dengan klik kanan pada lokasi.
+        const map = L.map('map-container').setView([-7.28, 112.79], 18); // Contoh: ITS Surabaya, zoom 18
+
+        // 4. Tambahkan Layer Tiles Lokal Anda
+        // Pastikan path 'map_tiles/{z}/{x}/{y}.png' sudah benar.
+        // Ganti '.png' menjadi '.webp' jika Anda menggunakan format WebP.
+        L.tileLayer('map_tiles/{z}/{x}/{y}.png', {
+            // Opsi ini PENTING! GDAL menggunakan skema TMS.
+            tms: true, 
+            
+            // Batasi level zoom sesuai yang Anda buat
+            minZoom: 18,
+            maxZoom: 22,
+            
+            // Mencegah peta berulang secara horizontal
+            noWrap: true,
+            
+            // Teks atribusi di pojok kanan bawah peta
+            attribution: 'Peta Orthophoto Lokal'
+        }).addTo(map);
+
+        // Tambahkan penanda contoh di tengah peta
+        L.marker([-7.28, 112.79]).addTo(map)
+            .bindPopup('Ini adalah contoh penanda.<br>Anda bisa menambahkan titik-titik pohon di sini.')
+            .openPopup();
+            
+        // Menambahkan kontrol skala
+        L.control.scale({ imperial: false }).addTo(map);
+
+    </script>
+
+</body>
+</html>

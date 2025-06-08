@@ -29,7 +29,7 @@ def analyze_soil_data(input_csv_path: str):
         
         # Untuk contoh ini, kita tambahkan kolom prediksi secara acak
         import random
-        kondisi = ['Subur', 'Cukup Subur', 'Kurang Subur']
+        kondisi = ['0', '1']
         df['prediksi_kondisi'] = [random.choice(kondisi) for _ in range(len(df))]
         print("Simulasi prediksi kondisi tanah selesai.")
         # --- AKHIR BAGIAN SIMULASI ---
