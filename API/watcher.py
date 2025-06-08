@@ -10,8 +10,8 @@ from src.deteksi_pohon import detect_trees_and_health
 # --- Konfigurasi ---
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 WATCH_PATH = os.path.join(BASE_DIR, 'data_input', 'orthophoto')
-# PENTING: URL ini menunjuk ke API server LOKAL Anda sendiri untuk memicu pengiriman.
-API_ENDPOINT_URL = "http://localhost:8000/api/send-tree-results"
+# PENTING: URL ini menunjuk ke API server LOKAL Anda dengan endpoint BARU.
+API_ENDPOINT_URL = "http://localhost:000/api/send-full-results"
 
 class OrthophotoHandler(FileSystemEventHandler):
     def on_created(self, event):
@@ -25,7 +25,7 @@ class OrthophotoHandler(FileSystemEventHandler):
 
             # TAHAP 2: KIRIM HASIL JIKA DETEKSI SUKSES
             if success:
-                print("\n✅ Deteksi berhasil. Memicu API lokal untuk mengirim bundle hasil...")
+                print("\n✅ Deteksi berhasil. Memicu API lokal untuk mengirim BUNDLE LENGKAP...")
                 
                 max_retries = 3 
                 retry_delay = 20 

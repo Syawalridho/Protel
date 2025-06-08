@@ -21,7 +21,7 @@ def analyze_soil_data(input_csv_path: str):
         df = pd.read_csv(input_csv_path)
         
         # PERBAIKAN: Nama kolom disesuaikan dengan contoh CSV Anda
-        feature_columns = ['pH', 'kelembaban', 'suhu']
+        feature_columns = ['temperature', 'kelembapan', 'pH']
         print(f"Menggunakan fitur: {feature_columns}")
         
         if not all(col in df.columns for col in feature_columns):

@@ -8,7 +8,7 @@ uvicorn_command = [
     "-m", "uvicorn", 
     "api_server:app", 
     "--host", "0.0.0.0", 
-    "--port", "8000"
+    "--port", "9000"
 ]
 
 # Perintah untuk menjalankan watcher
@@ -18,7 +18,7 @@ api_process = None
 watcher_process = None
 try:
     print("=============================================")
-    print("🚀 Menjalankan server FastAPI di http://0.0.0.0:8000")
+    print("🚀 Menjalankan server FastAPI di http://0.0.0.0:9000")
     print("=============================================")
     api_process = subprocess.Popen(uvicorn_command)
     time.sleep(4) 

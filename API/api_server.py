@@ -12,7 +12,7 @@ from src.deteksi_pohon import detect_trees_and_health
 
 # --- KONFIGURASI PENTING ---
 # Ini adalah alamat server teman Anda yang akan menerima file.
-DESTINATION_URL = "http://192.168.1.15:8000/api/receiver/terima-hasil-pohon"
+DESTINATION_URL = "http://192.168.186.41:3001/api/receiver/terima-hasil-pohon"
 # API Key ini harus sama dengan yang ditentukan oleh server teman Anda.
 DESTINATION_API_KEY = "HALO"
 # ----------------------------------------
