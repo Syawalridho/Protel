@@ -10,7 +10,7 @@ uvicorn_command = [
     "-m", "uvicorn", 
     "api_server:app", 
     "--host", "0.0.0.0", 
-    "--port", "8000"
+    "--port", "3001"
     # Dihilangkan --reload agar lebih stabil saat dijalankan via skrip,
     # tapi bisa ditambahkan jika masih dalam tahap development aktif
 ]
@@ -22,7 +22,7 @@ watcher_command = [sys.executable, "watcher.py"]
 # --- Mulai Menjalankan Proses ---
 try:
     print("=============================================")
-    print("🚀 [1/2] Menjalankan server FastAPI di http://0.0.0.0:8000")
+    print("🚀 [1/2] Menjalankan server FastAPI di http://0.0.0.0:3001")
     print("=============================================")
     # Menjalankan server API di background
     api_process = subprocess.Popen(uvicorn_command)
