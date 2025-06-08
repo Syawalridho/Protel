@@ -75,8 +75,6 @@ def detect_trees_and_health(input_image_path: str):
                 'longitude_wgs84': lon_wgs84,
                 'latitude_wgs84': lat_wgs84,
                 'status_kesehatan': status_kesehatan,
-                'x_pixel': xc_pixel,
-                'y_pixel': yc_pixel,
             })
 
         if not detection_data:
