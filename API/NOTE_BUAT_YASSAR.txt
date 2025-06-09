@@ -1,0 +1,61 @@
+Jadi intinya, udah nyoba di postman buat nge POST .tif sama csv,
+
+dibagian POST itu URL nya http://<IP address kita>:9000/receive-orthophoto-from-watcher
+
+terus ke body --> form-data (Jangan pake none)
+Terus Valuenya masukin file .tif atau csv pohon,
+YANG PALING PENTING itu di KEY pake ketik file
+
+Aku juga baru tau ternyata harus pake key, jadi di kodemu sar kalau bisa ada kayak untuk KEY nya gitu dikasih nama file buat nerima fileku
+
+Bagaimana Jika Mengirim dari Web?
+Jika Anda ingin mengirim file dari halaman web (menggunakan HTML form atau JavaScript FormData), konsepnya sama persis: nama atribut name dari input file HTML atau nama field yang Anda berikan saat menambahkan ke objek FormData di JavaScript harus sesuai dengan nama parameter di FastAPI Anda.
+
+Contoh Pengiriman dari HTML Form:
+Jika Anda memiliki form HTML di halaman web teman Anda untuk mengunggah file:
+
+HTML
+
+<form action="http://192.168.1.11:9000/api/receive-orthophoto-from-watcher" method="post" enctype="multipart/form-data">
+    <label for="orthoFile">Pilih Orthophoto:</label><br>
+    <input type="file" id="orthoFile" name="file"><br><br> <input type="submit" value="Unggah Orthophoto">
+</form>
+Saat tombol "Unggah Orthophoto" diklik, browser akan mengirim permintaan POST dengan multipart/form-data ke http://192.168.1.11:9000/api/receive-orthophoto-from-watcher, dan field file akan memiliki nama file, yang akan cocok dengan file: UploadFile = File(...) di FastAPI Anda.
+
+Contoh Pengiriman dari JavaScript (Menggunakan FormData):
+Ini adalah cara yang lebih umum dan fleksibel untuk mengunggah file di web modern, terutama jika Anda ingin melakukannya secara asinkron tanpa reload halaman.
+
+JavaScript
+
+// Dapatkan file dari input HTML (misalnya <input type="file" id="myOrthoFile">)
+const fileInput = document.getElementById('myOrthoFile');
+const orthoFile = fileInput.files[0]; // Ambil file pertama yang dipilih
+
+if (orthoFile) {
+    const formData = new FormData();
+    // Penting: 'file' di sini harus cocok dengan nama parameter di FastAPI
+    formData.append('file', orthoFile, orthoFile.name); 
+
+    fetch('http://192.168.1.11:9000/api/receive-orthophoto-from-watcher', {
+        method: 'POST',
+        body: formData // Langsung kirim objek FormData
+    })
+    .then(response => {
+        if (!response.ok) {
+            // Tangani error HTTP (misalnya 4xx atau 5xx)
+            return response.json().then(err => { throw new Error(err.detail || 'Pengunggahan gagal'); });
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Unggahan berhasil:', data);
+        alert(data.message);
+    })
+    .catch(error => {
+        console.error('Ada masalah dengan unggahan:', error);
+        alert('Terjadi kesalahan saat mengunggah: ' + error.message);
+    });
+} else {
+    alert('Silakan pilih file orthophoto terlebih dahulu.');
+}
+Dalam contoh JavaScript ini, baris formData.append('file', orthoFile, orthoFile.name); adalah kunci. Parameter pertama ('file') adalah nama field yang akan dikirim, yang harus sesuai dengan file di fungsi FastAPI Anda.

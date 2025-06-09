@@ -12,8 +12,13 @@ from src.deteksi_pohon import detect_trees_and_health # detect_trees_and_health 
 # --- Konfigurasi ---
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 WATCH_PATH = os.path.join(BASE_DIR, 'data_input', 'orthophoto')
+<<<<<<< HEAD
 # PENTING: URL ini menunjuk ke API server LOKAL Anda sendiri untuk Menerima file orthophoto.
 API_ENDPOINT_URL_RECEIVE_ORTHO = "http://192.168.1.11:9000/api/receive-orthophoto-from-watcher" # URL baru
+=======
+# PENTING: URL ini menunjuk ke API server LOKAL Anda dengan endpoint BARU.
+API_ENDPOINT_URL = "http://localhost:000/api/send-full-results"
+>>>>>>> 009f32d066f527191143c5d8a29ea3ff8310d6eb
 
 class OrthophotoHandler(FileSystemEventHandler):
     def on_created(self, event):
@@ -21,6 +26,7 @@ class OrthophotoHandler(FileSystemEventHandler):
             print(f"✅ Gambar orthophoto baru terdeteksi: {os.path.basename(event.src_path)}")
             time.sleep(2) # Beri sedikit waktu untuk memastikan file selesai ditulis sepenuhnya
             
+<<<<<<< HEAD
             # TAHAP 1: KIRIM ORTHOPHOTO KE API SERVER UNTUK DETEKSI
             print("🚀 Mengirim orthophoto ke API server untuk diproses...")
             
@@ -34,6 +40,22 @@ class OrthophotoHandler(FileSystemEventHandler):
                         files_to_send = {'file': (os.path.basename(event.src_path), f, 'image/tiff')}
                         # Tidak perlu headers Content-Type karena requests akan menanganinya untuk multipart/form-data
                         response = requests.post(API_ENDPOINT_URL_RECEIVE_ORTHO, files=files_to_send, timeout=300) # Timeout lebih besar
+=======
+            # TAHAP 1: JALANKAN DETEKSI
+            print("🚀 Memulai proses deteksi pohon...")
+            success, message = detect_trees_and_health(event.src_path)
+
+            # TAHAP 2: KIRIM HASIL JIKA DETEKSI SUKSES
+            if success:
+                print("\n✅ Deteksi berhasil. Memicu API lokal untuk mengirim BUNDLE LENGKAP...")
+                
+                max_retries = 3 
+                retry_delay = 20 
+                
+                for attempt in range(max_retries):
+                    try:
+                        response = requests.post(API_ENDPOINT_URL, timeout=30)
+>>>>>>> 009f32d066f527191143c5d8a29ea3ff8310d6eb
                         response.raise_for_status() 
                         
                         print(f"🚀 (Percobaan {attempt + 1}) Pengiriman orthophoto ke API server berhasil!")
