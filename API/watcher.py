@@ -11,7 +11,7 @@ from src.deteksi_pohon import detect_trees_and_health
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 WATCH_PATH = os.path.join(BASE_DIR, 'data_input', 'orthophoto')
 # URL ini memanggil endpoint di server LOKAL Anda sendiri.
-API_ENDPOINT_URL = "http://localhost:8000/api/send-full-results"
+API_ENDPOINT_URL = "http://172.20.10.3:9000/api/send-full-results"
 
 class OrthophotoHandler(FileSystemEventHandler):
     def on_created(self, event):

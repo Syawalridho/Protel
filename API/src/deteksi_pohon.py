@@ -4,6 +4,7 @@ import os
 import rasterio
 import pyproj
 import cv2
+import traceback
 
 # --- Tentukan path ---
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -27,7 +28,7 @@ def detect_trees_and_health(input_image_path: str):
         # 1. Muat kedua model
         print("Memuat model...")
         if not os.path.exists(TREE_MODEL_PATH) or not os.path.exists(GANODERMA_MODEL_PATH):
-            raise FileNotFoundError(f"Satu atau kedua model tidak ditemukan. Pastikan keduanya ada di folder 'models'.")
+            raise FileNotFoundError(f"Satu atau kedua model tidak ditemukan. Pastikan 'best_tree_detector.pt' dan 'best_ganoderma_detector.pt' ada di folder 'models'.")
         
         tree_model = YOLO(TREE_MODEL_PATH)
         health_model = YOLO(GANODERMA_MODEL_PATH)
@@ -85,7 +86,6 @@ def detect_trees_and_health(input_image_path: str):
         print(f"\nProses selesai. Hasil deteksi pohon dan kesehatan disimpan di: {CSV_OUTPUT_PATH}")
         return True, "Deteksi pohon dan kesehatan berhasil."
 
-    except Exception as e:
-        error_msg = f"Terjadi error kritis saat deteksi pohon: {e}"
-        print(error_msg)
-        return False, error_msg
+    except Exception:
+        print(f"Terjadi error kritis saat deteksi pohon:\n{traceback.format_exc()}")
+        return False, "Gagal melakukan deteksi pohon."

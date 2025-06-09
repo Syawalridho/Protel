@@ -1,2 +1,2 @@
 sensor_id,temperature,kelembapan,pH,gps_lat,gps_long,timestamp,status_prediksi
-SENSOR003,0.0,100.0,-1.24,-7.285308,112.795933,2025-06-08 21:21:56,Tidak Sehat
+SENSOR001,29.75,38.0,5.96,-7.285498,112.795936,2025-06-09 04:47:46,Tidak Sehat
