@@ -15,15 +15,9 @@ from src.deteksi_tanah import analyze_soil_data
 from src.deteksi_pohon import detect_trees_and_health 
 
 # --- KONFIGURASI PENTING ---
-<<<<<<< HEAD
 # Alamat IP dan port server teman Anda
 DESTINATION_URL = "http://192.168.1.11:9000/api/receiver/terima-hasil-lengkap"
 # API Key yang ditentukan oleh server teman Anda
-=======
-# Ini adalah alamat server teman Anda yang akan menerima file.
-DESTINATION_URL = "http://192.168.186.41:3001/api/receiver/terima-hasil-pohon"
-# API Key ini harus sama dengan yang ditentukan oleh server teman Anda.
->>>>>>> 009f32d066f527191143c5d8a29ea3ff8310d6eb
 DESTINATION_API_KEY = "HALO"
 # ----------------------------------------
 
