@@ -7,7 +7,7 @@ uvicorn_command = [
     sys.executable,
     "-m", "uvicorn", 
     "api_server:app", 
-    "--host", "192.168.1.11", 
+    "--host", "10.125.163.46", 
     "--port", "9000"
 ]
 

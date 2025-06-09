@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 1
+names: ['Ganoderma']
+
+roboflow:
+  workspace: binus-ptpn4-ramadya
+  project: ganoderma-detection-oil-palm
+  version: 2
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/binus-ptpn4-ramadya/ganoderma-detection-oil-palm/dataset/2

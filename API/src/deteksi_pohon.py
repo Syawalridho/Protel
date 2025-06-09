@@ -2,94 +2,90 @@ import pandas as pd
 from ultralytics import YOLO
 import os
 import rasterio
-from rasterio.transform import Affine
 import pyproj
 import cv2
-import numpy as np
 
-# Tentukan path absolut untuk konsistensi
+# --- Tentukan path ---
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+MODELS_DIR = os.path.join(BASE_DIR, 'models')
+OUTPUT_DIR = os.path.join(BASE_DIR, 'data_output')
 
-# --- Path hanya untuk SATU model ---
-# Model untuk mendeteksi lokasi pohon
-TREE_MODEL_PATH = os.path.join(BASE_DIR, 'models', 'best_tree_detector.pt') 
+# Path untuk DUA model
+TREE_MODEL_PATH = os.path.join(MODELS_DIR, 'best_tree_detector.pt') # Model untuk deteksi lokasi pohon
+GANODERMA_MODEL_PATH = os.path.join(MODELS_DIR, 'best_ganoderma_detector.pt') # Model untuk deteksi penyakit
 
-OUTPUT_PATH = os.path.join(BASE_DIR, 'data_output', 'hasil_analisis_pohon.csv')
+CSV_OUTPUT_PATH = os.path.join(OUTPUT_DIR, 'hasil_analisis_pohon.csv')
 
 def detect_trees_and_health(input_image_path: str):
     """
-    Mendeteksi koordinat pohon menggunakan satu model, mengonversinya ke WGS84,
-    dan menyimpan hasilnya ke CSV dengan status kesehatan placeholder.
+    Mendeteksi lokasi pohon, lalu menganalisis gejala Ganoderma pada setiap pohon
+    menggunakan dua model terpisah, dan menyimpan hasil gabungan ke CSV.
     """
-    print(f"Memulai proses deteksi pohon pada: {input_image_path}")
+    print(f"Memulai proses deteksi pohon & kesehatan pada: {os.path.basename(input_image_path)}")
 
     try:
-        # 1. Muat model deteksi pohon
-        print("Memuat model deteksi pohon...")
-        if not os.path.exists(TREE_MODEL_PATH):
-            raise FileNotFoundError(f"Model deteksi pohon tidak ditemukan. Pastikan 'best_tree_detector.pt' ada di folder 'models'.")
+        # 1. Muat kedua model
+        print("Memuat model...")
+        if not os.path.exists(TREE_MODEL_PATH) or not os.path.exists(GANODERMA_MODEL_PATH):
+            raise FileNotFoundError(f"Satu atau kedua model tidak ditemukan. Pastikan keduanya ada di folder 'models'.")
         
         tree_model = YOLO(TREE_MODEL_PATH)
-        print("Model berhasil dimuat.")
+        health_model = YOLO(GANODERMA_MODEL_PATH)
+        print("Semua model berhasil dimuat.")
 
-        # 2. Baca orthophoto.tif dan informasi geospasialnya
+        # 2. Baca orthophoto dan data geografisnya
         print("Membaca file GeoTIFF...")
         with rasterio.open(input_image_path) as src:
             image_rgb = src.read([1, 2, 3])
-            transform: Affine = src.transform
+            transform = src.transform
             source_crs = src.crs
-            if not source_crs:
-                raise ValueError("File GeoTIFF tidak memiliki informasi CRS.")
+            if not source_crs: raise ValueError("File GeoTIFF tidak memiliki informasi CRS.")
 
-        # Konversi gambar untuk diproses
         image_hwc = image_rgb.transpose((1, 2, 0))
         image_bgr = cv2.cvtColor(image_hwc, cv2.COLOR_RGB2BGR)
 
-        # 3. Lakukan inference dengan model deteksi pohon
-        print("Mendeteksi lokasi semua pohon...")
+        # 3. TAHAP 1: Deteksi lokasi semua pohon
+        print("TAHAP 1: Mendeteksi lokasi pohon...")
         tree_results = tree_model.predict(source=image_bgr, save=False, conf=0.5)[0]
         print(f"Deteksi lokasi selesai. Ditemukan {len(tree_results.boxes)} pohon.")
 
-        # 4. Siapkan konverter koordinat
-        target_crs = "EPSG:4326"
-        transformer = pyproj.Transformer.from_crs(source_crs, target_crs, always_xy=True)
+        # 4. Siapkan konverter koordinat ke WGS84
+        transformer = pyproj.Transformer.from_crs(source_crs, "EPSG:4326", always_xy=True)
         
         detection_data = []
+        print("\nTAHAP 2: Menganalisis gejala Ganoderma untuk setiap pohon...")
         # Iterasi melalui setiap pohon yang terdeteksi
         for i, box in enumerate(tree_results.boxes):
-            # Ambil koordinat bounding box pohon
             x1, y1, x2, y2 = [int(coord) for coord in box.xyxy[0]]
             
-            # --- Status kesehatan diatur ke placeholder ---
-            status_kesehatan = "Belum dianalisis"
+            # Crop gambar pohon individu
+            cropped_tree_image = image_bgr[y1:y2, x1:x2]
+
+            # Lakukan inference dengan model KESEHATAN
+            health_results = health_model.predict(source=cropped_tree_image, verbose=False)[0]
+
+            # Tentukan status kesehatan: 0 jika terdeteksi, 1 jika tidak
+            status_kesehatan = 1 # Default: Sehat
+            if len(health_results.boxes) > 0:
+                status_kesehatan = 0 # Terdeteksi gejala Ganoderma
             
+            print(f"  - Pohon_{i+1}: Status = {'Sehat' if status_kesehatan == 1 else 'Sakit (Ganoderma)'}")
+
             # Konversi koordinat piksel tengah ke WGS84
-            xc_pixel = (x1 + x2) / 2
-            yc_pixel = (y1 + y2) / 2
+            xc_pixel, yc_pixel = (x1 + x2) / 2, (y1 + y2) / 2
             proj_lon, proj_lat = transform * (xc_pixel, yc_pixel)
             lon_wgs84, lat_wgs84 = transformer.transform(proj_lon, proj_lat)
 
-            # Tambahkan semua data ke list
             detection_data.append({
-                'id_pohon': f"pohon_{i+1}",
-                'gps_long': lon_wgs84,
-                'gps_lat': lat_wgs84,
-                'status_kesehatan': status_kesehatan,
+                'id_pohon': f"pohon_{i+1}", 'gps_long': lon_wgs84,
+                'gps_lat': lat_wgs84, 'status_kesehatan': status_kesehatan
             })
 
-        if not detection_data:
-            print("Proses selesai, namun tidak ada pohon yang terdeteksi.")
-            return True, "Tidak ada pohon yang terdeteksi."
-        
-        # 5. Simpan hasil akhir ke file CSV
-        df_hasil = pd.DataFrame(detection_data)
-        df_hasil.to_csv(OUTPUT_PATH, index=False)
-        
-        print(f"\nProses selesai. Hasil deteksi disimpan di: {OUTPUT_PATH}")
-        return True, "Deteksi pohon berhasil."
+        pd.DataFrame(detection_data).to_csv(CSV_OUTPUT_PATH, index=False)
+        print(f"\nProses selesai. Hasil deteksi pohon dan kesehatan disimpan di: {CSV_OUTPUT_PATH}")
+        return True, "Deteksi pohon dan kesehatan berhasil."
 
     except Exception as e:
-        error_msg = f"Terjadi error kritis: {e}"
+        error_msg = f"Terjadi error kritis saat deteksi pohon: {e}"
         print(error_msg)
         return False, error_msg
-
