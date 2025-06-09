@@ -1,4 +1,4 @@
-id_pohon,longitude_wgs84,latitude_wgs84,status_kesehatan
+id_pohon,gps_long,gps_lat,status_kesehatan
 pohon_1,112.79611920276965,-7.28523079034183,Belum dianalisis
 pohon_2,112.79649653467594,-7.285227483782789,Belum dianalisis
 pohon_3,112.79691344038224,-7.284475666524583,Belum dianalisis

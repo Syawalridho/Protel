@@ -1,3 +1,4 @@
+# api_server.py
 import uvicorn
 from fastapi import FastAPI, UploadFile, File, HTTPException, BackgroundTasks
 from fastapi.responses import FileResponse, JSONResponse
@@ -7,14 +8,15 @@ import glob
 import requests
 import traceback
 import time
+# import zipfile # Tidak lagi diperlukan karena tidak ada ZIP
 
 # Impor fungsi logika dari folder src
 from src.deteksi_tanah import analyze_soil_data
 from src.deteksi_pohon import detect_trees_and_health 
 
 # --- KONFIGURASI PENTING ---
-# Alamat server teman Anda
-DESTINATION_URL = "http://172.20.10.2:3001/api/receiver/terima-hasil-pohon"
+# Alamat IP dan port server teman Anda
+DESTINATION_URL = "http://192.168.1.11:9000/api/receiver/terima-hasil-lengkap"
 # API Key yang ditentukan oleh server teman Anda
 DESTINATION_API_KEY = "HALO"
 # ----------------------------------------
@@ -31,51 +33,31 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 app = FastAPI(title="API Deteksi Perkebunan Sawit")
 
-# --- FUNGSI BARU UNTUK DIJALANKAN DI LATAR BELAKANG ---
-def send_results_in_background():
+# --- FUNGSI UNTUK KIRIM FILE TUNGGAL DI LATAR BELAKANG ---
+def send_single_file_in_background(filepath: str, destination_url: str, api_key: str, form_field_name: str, media_type: str):
     """
-    Fungsi ini berisi logika pengiriman file yang berat dan akan dijalankan
-    sebagai background task agar tidak menyebabkan timeout.
+    Tugas latar belakang untuk mengirim satu file ke server tujuan.
     """
     try:
-        # Beri jeda singkat untuk memastikan file CSV selesai ditulis
-        time.sleep(2)
-        print("[BG-Task] Memulai tugas pengiriman bundle...")
-
-        # 1. Cari semua file hasil yang diperlukan
-        list_of_tifs = glob.glob(os.path.join(INPUT_ORTHO_DIR, '*.tif'))
-        if not list_of_tifs:
-            print("[BG-Task] Error: Tidak ada file mapping (.tif) ditemukan.")
+        if not os.path.exists(filepath):
+            print(f"[BG-Task-Single] Error: File '{os.path.basename(filepath)}' tidak ditemukan untuk pengiriman.")
             return
 
-        latest_tif_file = max(list_of_tifs, key=os.path.getmtime)
-        tree_csv_path = os.path.join(OUTPUT_DIR, 'hasil_analisis_pohon.csv')
-        
-        if not os.path.exists(tree_csv_path):
-            print("[BG-Task] Error: File hasil_analisis_pohon.csv tidak ditemukan.")
-            return
-
-        print(f"[BG-Task] Mempersiapkan pengiriman ke {DESTINATION_URL}:")
-        print(f" - Mapping: {os.path.basename(latest_tif_file)}")
-        print(f" - CSV Pohon: {os.path.basename(tree_csv_path)}")
-
-        # 2. Siapkan dan kirim file
-        with open(latest_tif_file, 'rb') as tif_f, open(tree_csv_path, 'rb') as tree_csv_f:
-            files_to_send = {
-                'mapping_file': (os.path.basename(latest_tif_file), tif_f, 'image/tiff'),
-                'csv_file': (os.path.basename(tree_csv_path), tree_csv_f, 'text/csv')
-            }
-            headers = {'x-api-key': DESTINATION_API_KEY}
-            # Timeout panjang untuk proses pengiriman itu sendiri
-            response = requests.post(DESTINATION_URL, headers=headers, files=files_to_send, timeout=300) 
+        print(f"[BG-Task-Single] Mempersiapkan pengiriman file '{os.path.basename(filepath)}' ke {destination_url}")
+        with open(filepath, 'rb') as f:
+            files_to_send = {form_field_name: (os.path.basename(filepath), f, media_type)}
+            headers = {'x-api-key': api_key}
+            response = requests.post(destination_url, headers=headers, files=files_to_send, timeout=300)
             response.raise_for_status()
 
-        print(f"[BG-Task] ✅ Bundle lengkap berhasil dikirim. Respons dari server tujuan: {response.json()}")
+        print(f"[BG-Task-Single] ✅ File '{os.path.basename(filepath)}' berhasil dikirim. Respons dari server tujuan: {response.json()}")
 
     except Exception:
-        print(f"[BG-Task] ❌ Gagal menjalankan tugas pengiriman bundle.")
-        # Mencetak detail error lengkap untuk debugging di log server
+        print(f"[BG-Task-Single] ❌ Gagal menjalankan tugas pengiriman file '{os.path.basename(filepath)}'.")
         print(traceback.format_exc())
+    finally:
+        # Untuk hasil analisis, biarkan tetap ada
+        pass 
 
 # --- ENDPOINTS API ---
 
@@ -84,17 +66,31 @@ def read_root():
     return {"status": "API berjalan dengan baik!"}
 
 @app.post("/api/upload-soil", summary="Unggah & Proses Data Tanah", tags=["Analisis Tanah"])
-async def upload_and_process_soil_data(file: UploadFile = File(...)):
+async def upload_and_process_soil_data(background_tasks: BackgroundTasks, file: UploadFile = File(...)):
     input_filepath = os.path.join(INPUT_SOIL_DIR, "data_tanah_terbaru.csv")
+    output_soil_path = os.path.join(OUTPUT_DIR, 'hasil_analisis_tanah.csv') 
     try:
         with open(input_filepath, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
     finally:
         file.file.close()
+    
     success, message = analyze_soil_data(input_filepath)
     if not success:
         raise HTTPException(status_code=500, detail=f"Gagal menganalisis data: {message}")
-    return JSONResponse(status_code=200, content={"message": "File berhasil diunggah dan analisis dimulai."})
+    
+    print(f"[API] Analisis tanah berhasil. Menjadwalkan pengiriman '{os.path.basename(output_soil_path)}' di latar belakang...")
+    # Mengirim hasil analisis tanah (CSV) sebagai file tunggal
+    background_tasks.add_task(
+        send_single_file_in_background,
+        filepath=output_soil_path,
+        destination_url=DESTINATION_URL,
+        api_key=DESTINATION_API_KEY,
+        form_field_name='soil_result_file', # Nama field yang diharapkan server teman untuk CSV tanah
+        media_type='text/csv'
+    )
+    
+    return JSONResponse(status_code=200, content={"message": "File tanah berhasil diunggah, analisis selesai, dan hasil akan dikirim ke server tujuan."})
 
 @app.get("/api/soil-results", summary="Ambil Hasil Analisis Tanah", tags=["Hasil Analisis"])
 def get_soil_analysis_results():
@@ -110,15 +106,54 @@ def get_tree_detection_results():
         raise HTTPException(status_code=404, detail="File hasil deteksi pohon tidak ditemukan.")
     return FileResponse(path=result_path, media_type='text/csv', filename='hasil_analisis_pohon.csv')
 
-# --- ENDPOINT DIPERBARUI UNTUK MENGGUNAKAN BACKGROUND TASK ---
-@app.post("/api/send-tree-results", summary="Kirim Bundle Hasil Deteksi (Latar Belakang)", tags=["Kirim Hasil"])
-def trigger_send_results_bundle(background_tasks: BackgroundTasks):
-    """
-    Memicu pengiriman bundle hasil di latar belakang. Endpoint ini merespons SEGERA.
-    """
-    print("[API] Menerima pemicu untuk pengiriman. Menjadwalkan tugas di latar belakang...")
-    # Menambahkan fungsi pengiriman ke antrian background task
-    background_tasks.add_task(send_results_in_background)
+# --- ENDPOINT PEMICU PENGIRIMAN HASIL ORTHOPHOTO DAN POHON ---
+@app.post("/api/receive-orthophoto-from-watcher", summary="Terima Orthophoto dari Watcher", tags=["Internal"])
+async def receive_orthophoto_from_watcher(
+    background_tasks: BackgroundTasks, 
+    file: UploadFile = File(...) # Menerima file langsung
+):
+    # Simpan file yang diterima dari watcher
+    ortho_filepath = os.path.join(INPUT_ORTHO_DIR, file.filename)
+    try:
+        with open(ortho_filepath, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+    finally:
+        file.file.close()
+
+    print(f"[API] Orthophoto '{file.filename}' diterima dari watcher.")
     
-    # Langsung kembalikan respons ke watcher.py agar tidak timeout
-    return JSONResponse(status_code=202, content={"message": "Tugas pengiriman telah diterima dan akan dijalankan di latar belakang."})
+    # Kemudian, panggil logika deteksi pohon dengan file yang baru disimpan
+    success, message = detect_trees_and_health(ortho_filepath)
+    if not success:
+        raise HTTPException(status_code=500, detail=f"Gagal mendeteksi pohon: {message}")
+
+    # Jadwalkan pengiriman hasil (orthophoto asli dan CSV hasil deteksi pohon)
+    tree_csv_path = os.path.join(OUTPUT_DIR, 'hasil_analisis_pohon.csv')
+
+    print(f"[API] Menjadwalkan pengiriman orthophoto asli '{os.path.basename(ortho_filepath)}' di latar belakang...")
+    background_tasks.add_task(
+        send_single_file_in_background,
+        filepath=ortho_filepath,
+        destination_url=DESTINATION_URL,
+        api_key=DESTINATION_API_KEY,
+        form_field_name='ortho_photo_file',
+        media_type='image/tiff'
+    )
+
+    if os.path.exists(tree_csv_path):
+        print(f"[API] Menjadwalkan pengiriman hasil deteksi pohon '{os.path.basename(tree_csv_path)}' di latar belakang...")
+        background_tasks.add_task(
+            send_single_file_in_background,
+            filepath=tree_csv_path,
+            destination_url=DESTINATION_URL,
+            api_key=DESTINATION_API_KEY,
+            form_field_name='tree_result_file',
+            media_type='text/csv'
+        )
+    else:
+        print(f"[API] Peringatan: File hasil_analisis_pohon.csv tidak ditemukan. Hanya orthophoto yang akan dikirim.")
+    
+    return JSONResponse(
+        status_code=200, 
+        content={"message": f"Orthophoto '{file.filename}' diterima, deteksi dimulai, dan hasil akan dikirim."}
+    )
