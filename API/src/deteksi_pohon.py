@@ -5,17 +5,25 @@ import rasterio
 import pyproj
 import cv2
 import traceback
+import subprocess
 
 # --- Tentukan path ---
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MODELS_DIR = os.path.join(BASE_DIR, 'models')
 OUTPUT_DIR = os.path.join(BASE_DIR, 'data_output')
 
-# Path untuk DUA model
-TREE_MODEL_PATH = os.path.join(MODELS_DIR, 'best_tree_detector.pt') # Model untuk deteksi lokasi pohon
-GANODERMA_MODEL_PATH = os.path.join(MODELS_DIR, 'best_ganoderma_detector.pt') # Model untuk deteksi penyakit
+TREE_MODEL_PATH = os.path.join(MODELS_DIR, 'best_tree_detector.pt')
+GANODERMA_MODEL_PATH = os.path.join(MODELS_DIR, 'best_ganoderma_detector.pt')
 
 CSV_OUTPUT_PATH = os.path.join(OUTPUT_DIR, 'hasil_analisis_pohon.csv')
+
+# Path baru untuk menyimpan orthophoto yang sudah terkompresi
+ORTHO_OUTPUT_DIR = os.path.join(OUTPUT_DIR, 'orthophoto')
+os.makedirs(ORTHO_OUTPUT_DIR, exist_ok=True) # Pastikan folder ini ada
+
+# --- PERUBAHAN DI SINI ---
+# Nama file output sekarang diatur secara statis menjadi "Map.tif"
+COMPRESSED_TIF_OUTPUT_PATH = os.path.join(ORTHO_OUTPUT_DIR, 'Map.tif') 
 
 def detect_trees_and_health(input_image_path: str):
     """
@@ -84,7 +92,29 @@ def detect_trees_and_health(input_image_path: str):
 
         pd.DataFrame(detection_data).to_csv(CSV_OUTPUT_PATH, index=False)
         print(f"\nProses selesai. Hasil deteksi pohon dan kesehatan disimpan di: {CSV_OUTPUT_PATH}")
-        return True, "Deteksi pohon dan kesehatan berhasil."
+        # --- TAHAP 3: KOMPRESI ORTHOPHOTO ---
+        print("\nTAHAP 3: Memulai kompresi file orthophoto menjadi 'Map.tif'...")
+        
+        # Siapkan perintah gdal_translate untuk kompresi
+        gdal_command = [
+            'gdal_translate',
+            '-co', 'COMPRESS=DEFLATE',
+            '-co', 'PREDICTOR=2',
+            '-co', 'TILED=YES',
+            input_image_path,                 # File input asli dari data_input
+            COMPRESSED_TIF_OUTPUT_PATH        # File output dengan nama 'Map.tif'
+        ]
+
+        # Jalankan perintah. Pastikan Anda menjalankan ini dari OSGeo4W Shell
+        subprocess.run(gdal_command, check=True, shell=True)
+        
+        original_size = os.path.getsize(input_image_path) / (1024*1024)
+        compressed_size = os.path.getsize(COMPRESSED_TIF_OUTPUT_PATH) / (1024*1024)
+
+        print(f"✅ Kompresi selesai. File disimpan sebagai: {COMPRESSED_TIF_OUTPUT_PATH}")
+        print(f"   Ukuran Asli: {original_size:.2f} MB -> Ukuran Baru: {compressed_size:.2f} MB")
+        
+        return True, "Deteksi dan kompresi berhasil."
 
     except Exception:
         print(f"Terjadi error kritis saat deteksi pohon:\n{traceback.format_exc()}")

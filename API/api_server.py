@@ -14,7 +14,7 @@ from src.deteksi_tanah import analyze_soil_data
 
 # --- KONFIGURASI PENTING ---
 # Ganti dengan IP dan Port server teman Anda
-DESTINATION_URL = "http://172.20.10.2:5000/api/receiver/terima-hasil-lengkap"
+DESTINATION_URL = "http://192.168.186.41:5000/api/receiver/terima-hasil-lengkap"
 # API Key ini harus sama dengan yang ada di server teman Anda
 # PERBAIKAN: Nama variabel disesuaikan agar konsisten
 DESTINATION_API_KEY = "HALO"
@@ -23,7 +23,7 @@ DESTINATION_API_KEY = "HALO"
 # Tentukan path
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 INPUT_SOIL_DIR = os.path.join(BASE_DIR, 'data_input', 'soil')
-INPUT_ORTHO_DIR = os.path.join(BASE_DIR, 'data_input', 'orthophoto')
+INPUT_ORTHO_DIR = os.path.join(BASE_DIR, 'data_output', 'orthophoto')
 OUTPUT_DIR = os.path.join(BASE_DIR, 'data_output')
 
 os.makedirs(INPUT_SOIL_DIR, exist_ok=True)

@@ -7,7 +7,7 @@ uvicorn_command = [
     sys.executable,
     "-m", "uvicorn", 
     "api_server:app", 
-    "--host", "172.20.10.3", 
+    "--host", "192.168.186.6", 
     "--port", "9000"
 ]
 
@@ -18,7 +18,7 @@ api_process = None
 watcher_process = None
 try:
     print("=============================================")
-    print("🚀 Menjalankan server FastAPI di http://10.125.163.46:9000")
+    print("🚀 Menjalankan server FastAPI di http://192.168.186.6:9000")
     print("=============================================")
     api_process = subprocess.Popen(uvicorn_command)
     time.sleep(4) 

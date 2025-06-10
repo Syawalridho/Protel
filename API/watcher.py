@@ -11,7 +11,7 @@ from src.deteksi_pohon import detect_trees_and_health
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 WATCH_PATH = os.path.join(BASE_DIR, 'data_input', 'orthophoto')
 # URL ini memanggil endpoint di server LOKAL Anda sendiri.
-API_ENDPOINT_URL = "http://172.20.10.3:9000/api/send-full-results"
+API_ENDPOINT_URL = "http://192.168.186.6:9000/api/send-full-results"
 
 class OrthophotoHandler(FileSystemEventHandler):
     def on_created(self, event):
@@ -20,7 +20,7 @@ class OrthophotoHandler(FileSystemEventHandler):
             time.sleep(2)
             
             # 1. Jalankan deteksi pohon & kesehatan
-            print("🚀 Memulai proses deteksi pohon & kesehatan...")
+            print("Memulai proses deteksi pohon & kesehatan...")
             success, message = detect_trees_and_health(event.src_path)
 
             # 2. Jika sukses, picu API untuk mengirim semua hasil
@@ -31,7 +31,7 @@ class OrthophotoHandler(FileSystemEventHandler):
                     # Timeout bisa pendek karena API merespons segera
                     response = requests.post(API_ENDPOINT_URL, timeout=30)
                     response.raise_for_status() 
-                    print(f"🚀 Pemicuan API berhasil! Respons: {response.json()}")
+                    print(f"Pemicuan API berhasil! Respons: {response.json()}")
                 except requests.exceptions.RequestException as e:
                     print(f"❌ GAGAL MEMICU API LOKAL. Pastikan api_server.py berjalan. Detail: {e}")
             else:
@@ -42,7 +42,7 @@ if __name__ == "__main__":
     event_handler = OrthophotoHandler()
     observer = Observer()
     observer.schedule(event_handler, WATCH_PATH, recursive=False)
-    print(f"👀 Memantau folder: {WATCH_PATH}")
+    print(f"Memantau folder: {WATCH_PATH}")
     observer.start()
     try:
         while True:
